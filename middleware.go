@@ -135,7 +135,7 @@ func (m *Middleware) ServeHTTP(rw http.ResponseWriter, r *http.Request, next htt
 	next(rw, r)
 
 	latency := m.clock.Since(start)
-	res := rw.(negroni.ResponseWriter)
+	res := negroni.NewResponseWriter(rw)
 
 	m.After(entry, res, latency, m.Name).Info("completed handling request")
 }
